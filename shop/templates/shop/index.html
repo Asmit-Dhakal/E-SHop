@@ -115,8 +115,9 @@ $('.cart').click(function (){
     else
     {
         cart[idstr]=1
-    }
-
+        }
+        console.log(cart);
+    localStorage.setItem('cart',JSON.stringify(cart));
 });
 </script>
 {% endblock js %}
