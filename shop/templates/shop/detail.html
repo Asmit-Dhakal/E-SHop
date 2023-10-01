@@ -10,13 +10,12 @@
   <body>
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
             <div class="row">
-                <div class="col-md-12">
-                    <img src="/media/{{ product_object.image }}" alt = "product image">
+                <div class="col-md-4">
+                    <img src="/media/{{ product_object.image }}" width="233px" height="385px" alt = "product image">
                 </div>
             </div>
-        </div>
+
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-12">
@@ -45,6 +44,10 @@
         </div>
     </div>
 </div>
+   <div class = "product-btns"><span>
+       <button type = "button" id="{{ product.id }}" class = "btn-cart btn-primary cart" > Add to cart
+           <span><i class = "fas fa-plus"></i></span>
+       </button></span></div>
   </body>
 </html>
 
