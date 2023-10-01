@@ -37,7 +37,6 @@
        </div>
       </form>
                    </div>
-
                    <div class="col-md-2">
                        <div class="d-flex d-none d-md-flex flex-row align-items-center">
                            <span class="shop-bag"><i class='bx bxs-shopping-bag'></i></span>
@@ -110,7 +109,14 @@ $('.cart').click(function (){
     console.log('clicked');
     var idstr = this.id.toString();
     console.log(idstr);
-    if(cart[idstr])
+    if(cart[idstr]!=undefined){
+        cart[idstr]=cart[idstr]+1;
+    }
+    else
+    {
+        cart[idstr]=1
+    }
+
 });
 </script>
 {% endblock js %}
