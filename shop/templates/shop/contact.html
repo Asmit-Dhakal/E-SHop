@@ -1,0 +1,43 @@
+{% extends "shop/base.html" %}
+{% load static %}
+ {% block title %}Contact{% endblock title %}
+{% block body %}
+    <section id="hero">
+    <div class="hero-container">
+        {% block content %}
+             <h1>Contact Us </h1>
+
+        {% endblock content %}
+
+    </div>
+  </section>
+    <div>
+    <form action="process_contact.php" method="POST">
+        <!-- Name Input -->
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <!-- Email Input -->
+        <label for="email">Your Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <!-- Message Textarea -->
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
+    </form>
+    </div>
+{% endblock body %}
+
+
+
+
+
+
+
+
+
+
+

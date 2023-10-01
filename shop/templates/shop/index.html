@@ -1,0 +1,117 @@
+{% extends "shop/base.html" %}
+ {% block title %}Home{% endblock title %}
+
+{% block body %}
+   <!-- ======= Hero Section ======= -->
+  <section id="hero">
+    <div class="hero-container">
+        {% block content %}
+            <h3>{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+
+    {% endfor %}
+  {% endif %}</h3>
+             <h3>Welcome to <strong>ONLINE Shop</strong></h3>
+      <h1>Buy authentic product</h1>
+      <h2>We are ready to Serve you 24/7 </h2>
+      <a href="#products" class="btn-get-started scrollto">Shop Now</a>
+        {% endblock content %}
+
+    </div>
+  </section>
+  <!-- End Hero -->
+    <div>
+   <header class="section-header">
+        <section class="header-main border-bottom bg-white">
+            <div class="container-fluid">
+               <div class="row p-2 pt-3 pb-3 d-flex align-items-center">
+                   <div class="col-md-2">
+                        <h1 class="d-none d-md-flex">Our Products</h1>
+                   </div>
+                   <div class="col-md-8">
+                <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search any product ..." name="item_name" aria-label="Search" required>
+       <div class="col-auto">
+           <button class="btn btn-success" type="submit" >Search</button>
+       </div>
+      </form>
+                   </div>
+
+                   <div class="col-md-2">
+                       <div class="d-flex d-none d-md-flex flex-row align-items-center">
+                           <span class="shop-bag"><i class='bx bxs-shopping-bag'></i></span>
+                           <div class="d-flex flex-column ms-2">
+                               <span class="qty">1 Product</span>
+                               <span class="fw-bold">$27.90</span>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+            </div>
+        </section>
+        </header>
+    </div>
+<main id="main">
+    <div id="products" class = "products">
+             <div class = "container">
+             <div class="row">
+                 <div class = "product-items">
+                         {% for product in product_objects %}
+                     <!-- single product -->
+                     <div class = "product">
+                         <div class = "product-content">
+                             <div class = "product-img">
+                                 <img src="/media/{{ product.image }}" alt = "product image">
+                             </div>
+                             <div class = "product-btns">
+                                 <span>
+                                 <button type = "button" id="{{ product.id }}" class = "btn-cart cart" > Add to cart
+                                     <span><i class = "fas fa-plus"></i></span>
+                                 </button>
+                                     </span>
+                             </div>
+                         </div>
+
+                         <div class = "product-info">
+                             <div class = "product-info-top">
+                                 <h2 class = "sm-title" >{{ product.name }}</h2>
+                                 <a href="/{{ product.id }}" class="btn btn-warning">View</a>
+                             </div>
+                             <a href = "#" class = "product-name">{{ product.desc }}</a>
+                             <p class = "product-price">$ {{ product.price }}</p>
+                             <p class = "product-price"  >$ {{ product.discount_price }}</p>
+                         </div>
+
+                         <div class = "off-info">
+                             <h2 class = "sm-title">{{ product.discount_percent }}% off</h2>
+                         </div>
+                     </div>
+                     <!-- end of single product -->
+                       {% endfor %}
+                 </div>
+             </div>
+         </div>
+    </div>
+ </main>
+{% endblock body %}
+  {% block js %}
+<script>
+console.log('working')
+if(localStorage.getItem('cart')==null){
+    var cart={};
+}
+
+else{
+    cart=JSON.parse(localStorage.getItem('cart'));
+}
+$('.cart').click(function (){
+
+    console.log('clicked');
+    var idstr = this.id.toString();
+    console.log(idstr);
+    if(cart[idstr])
+});
+</script>
+{% endblock js %}
+

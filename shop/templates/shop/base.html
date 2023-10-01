@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+  <meta content="Happy E-shop website We deliver produce" name="description">
+  <meta content="Ecommerce" name="amazon,flipcart,daraz,hamrobazar Eshop">
+
+  <!-- Favicons -->
+     <link rel="stylesheet" href="{% static 'shop/css/style1.css' %}">
+  <link href="{% static 'shop/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'shop/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'shop/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+ <link href="{% static 'shop/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+ <link href="{% static 'shop/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+ <link href="{% static 'shop/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+ <link href="{% static 'shop/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+<link href="{% static 'shop/css/style.css' %}" rel="stylesheet">
+<link href="{% static 'shop/css/style1.css' %}" rel="stylesheet">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <h1 class="logo"><a href="/">Happy E-Shop</a></h1>
+      <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="/">Home</a></li>
+          <li><a class="nav-link scrollto" href="/about">About</a></li>
+            <li><a class="nav-link scrollto" href="/about">Checkout</a></li>
+            {% if user.is_authenticated %}
+
+                <li><a class="nav-link scrollto" href="{% url 'profile' %}">{{ user.username }}</a></li>
+            <li><a class="nav-link scrollto" href="{% url 'logout' %}">logout</a></li>
+               <button type="button" class="nav-link scrollto bg-danger p-3 m-2" id="popcart" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom popover">
+  Cart
+</button>
+            {% else %}
+            <li><a class="nav-link scrollto" href="{% url 'login' %}">login</a></li>
+            {% endif %}
+
+            <li><a class="nav-link scrollto bg-dark p-3 m-2" href="/contact">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+{% block body %}
+
+
+{% endblock body %}
+
+  <!-- Vendor JS Files -->
+
+  <script src=" {% static 'shop/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'shop/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'shop/vendor/isotope-layout/isotope.pkgd.min.js ' %}"></script>
+  <script src="{% static 'shop/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'shop/vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'shop/js/main.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  {% block js %}
+
+{% endblock js %}
+
+  </body>
+</html>
