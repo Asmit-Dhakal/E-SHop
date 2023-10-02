@@ -64,8 +64,8 @@
                                  <img src="/media/{{ product.image }}" alt = "product image">
                              </div>
                              <div class = "product-btns">
-                                 <span>
-                                 <button type = "button" id="{{ product.id }}" class = "btn-cart cart" > Add to cart
+                                 <span id="divpr{{ product.id }}">
+                                 <button type = "button" id="pr{{ product.id }}" class = "btn-cart cart" > Add to cart
                                      <span><i class = "fas fa-plus"></i></span>
                                  </button>
                                      </span>
@@ -96,6 +96,7 @@
 {% endblock body %}
   {% block js %}
 <script>
+//Find out the item from localstorage
 console.log('working')
 if(localStorage.getItem('cart')==null){
     var cart={};
@@ -104,9 +105,11 @@ if(localStorage.getItem('cart')==null){
 else{
     cart=JSON.parse(localStorage.getItem('cart'));
     document.getElementById('cart').innerHTML=Object.keys(cart).length;
+    updateCart(cart);
 }
-$('.cart').click(function (){
 
+//if tha add to cart button is, add/increment the item
+$('.cart').click(function (){
     console.log('clicked');
     var idstr = this.id.toString();
     console.log(idstr);
@@ -117,15 +120,24 @@ $('.cart').click(function (){
     {
         cart[idstr]=1
         }
+    updateCart(cart);
         console.log(cart);
     localStorage.setItem('cart',JSON.stringify(cart));
     document.getElementById('cart').innerHTML=Object.keys(cart).length;
 });
 
+//Add popover to cart
 $('#popcart').popover();
-
 document.getElementById('popcart').setAttribute('data-content','<h5>Cart item </>')
 
+function updateCart(cart){
+    console.log(cart)
+    for (var item in cart ){
+          document.getElementById('div' + item).innerHTML = "<button id='minus" + item
+              + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item] +
+              "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+    }
+}
 </script>
 {% endblock js %}
 
