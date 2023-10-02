@@ -64,7 +64,7 @@
                                  <img src="/media/{{ product.image }}" alt = "product image">
                              </div>
                              <div class = "product-btns">
-                                 <span id="divpr{{ product.id }}" class="divpr{{ product.id }}">
+                                 <span id="divpr{{ product.id }}" class="divpr">
                                  <button type = "button" id="pr{{ product.id }}" class = "btn-cart cart" > Add to cart
                                      <span><i class = "fas fa-plus"></i></span>
                                  </button>
@@ -96,10 +96,11 @@
 {% endblock body %}
   {% block js %}
 <script>
+var cart={};
 //Find out the item from localstorage
 console.log('working')
-if(localStorage.getItem('cart')==null){
-    var cart={};
+if(localStorage.getItem('cart')==="null"){
+
 }
 
 else{
@@ -138,12 +139,19 @@ function updateCart(cart){
               "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
     }
 }
+// If plus or minus button is clicked, change the cart as well as the display value
 $('.divpr').on("click", "button.minus", function() {
-    console.log("minus clicked");
+    a = this.id.slice(7, );
+    cart['pr' + a] = cart['pr' + a] - 1;
+    cart['pr' + a] = Math.max(0, cart['pr' + a]);
+    document.getElementById('valpr' + a).innerHTML = cart['pr' + a];
+    updateCart(cart);
 });
-
 $('.divpr').on("click", "button.plus", function() {
-   console.log("plus clicked Clicked")
+    a = this.id.slice(6, );
+    cart['pr' + a] = cart['pr' + a] + 1;
+    document.getElementById('valpr' + a).innerHTML = cart['pr' + a];
+    updateCart(cart);
 });
 
 </script>
