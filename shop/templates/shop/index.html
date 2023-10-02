@@ -64,7 +64,7 @@
                                  <img src="/media/{{ product.image }}" alt = "product image">
                              </div>
                              <div class = "product-btns">
-                                 <span id="divpr{{ product.id }}">
+                                 <span id="divpr{{ product.id }}" class="divpr{{ product.id }}">
                                  <button type = "button" id="pr{{ product.id }}" class = "btn-cart cart" > Add to cart
                                      <span><i class = "fas fa-plus"></i></span>
                                  </button>
@@ -138,6 +138,14 @@ function updateCart(cart){
               "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
     }
 }
+$('.divpr').on("click", "button.minus", function() {
+    console.log("minus clicked");
+});
+
+$('.divpr').on("click", "button.plus", function() {
+   console.log("plus clicked Clicked")
+});
+
 </script>
 {% endblock js %}
 
