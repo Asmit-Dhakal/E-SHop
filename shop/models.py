@@ -36,5 +36,14 @@ class Product(models.Model):
 
 
 class Order(models.Model):
-    order_id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     item_json = models.CharField(max_length=10000)
+    name = models.CharField(max_length=100)
+    phone = models.IntegerField()
+    email = models.EmailField()
+    city = models.CharField(max_length=200)
+    province = models.CharField(max_length=200)
+    zip_code = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
