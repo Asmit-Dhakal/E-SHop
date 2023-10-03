@@ -23,6 +23,11 @@ def contact(request):
     return render(request, 'shop/contact.html')
 
 
+def checkout(request):
+    products_object = Product.objects.all()
+    return render(request, 'shop/checkout.html',{'product_object': products_object})
+
+
 def about(request):
     product_objects = Product.objects.all()
     return render(request, 'shop/about.html', {'product_objects': product_objects})

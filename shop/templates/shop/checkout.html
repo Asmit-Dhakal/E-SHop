@@ -1,0 +1,112 @@
+{% extends "shop/base.html" %}
+ {% block title %}Home{% endblock title %}
+
+{% block body %}
+   <!-- ======= Hero Section ======= -->
+  <section id="hero">
+    <div class="hero-container">
+        {% block content %}
+            <h3>{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+
+    {% endfor %}
+  {% endif %}</h3>
+             <h3>Welcome to <strong>ONLINE Shop</strong></h3>
+      <h1>Buy authentic product</h1>
+      <h2>We are ready to Serve you 24/7 </h2>
+      <a href="#products" class="btn-get-started scrollto">Shop Now</a>
+        {% endblock content %}
+
+    </div>
+  </section>
+  <!-- End Hero -->
+    <div class="container">
+      <div class="col my-2">
+          <h2> Checkout the product</h2>
+      <div class="my-4">
+          <ul class="list-group " id="items">
+         </ul>
+      </div>
+  </div>
+<div class="col">
+    <h2> Enter address</h2>
+    <form class="row g-3">
+  <div class="col-md-9">
+    <label for="inputname" class="form-label">Name</label>
+    <input type="text" class="form-control" id="inputname"  placeholder="Full Name">
+  </div>
+        <div class="col-md-6">
+    <label for="inputEmail4" class="form-label">Email</label>
+    <input type="email" class="form-control" id="inputEmail4"  placeholder="Email">
+  </div>
+     <h6> Enter address</h6>
+  <div class="col-md-4">
+    <label for="province" class="form-label">Province</label>
+<select id="province" class="form-select">
+  <option selected>Choose...</option>
+  <option value="Koshi">Koshi</option>
+  <option value="Madhesh">Madhesh</option>
+  <option value="Bagmati">Bagmati</option>
+  <option value="Gandaki">Gandaki</option>
+  <option value="Lumbini">Lumbini</option>
+  <option value="Karnali">Karnali</option>
+  <option value="Sudurpashchim">Sudurpashchim</option>
+</select>
+  </div>
+     <div class="col-md-4">
+    <label for="district" class="form-label">District</label>
+    <input type="text" class="form-control" id="district" placeholder="District Name">
+  </div>
+  <div class="col-md-6">
+    <label for="inputcity" class="form-label">City</label>
+    <input type="text" class="form-control" id="inputcity">
+  </div>
+  <div class="col-md-2">
+    <label for="inputzip" class="form-label">Zip</label>
+    <input type="text" class="form-control" id="inputzip">
+  </div>
+  <div class="col-12">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        Check me out
+      </label>
+    </div>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Place order</button>
+  </div>
+</form>
+</div>
+</div>
+
+{% endblock body %}
+{% block js %}
+<script>
+if (localStorage.getItem('cart') == null) {
+    var cart = {};
+} else {
+    cart = JSON.parse(localStorage.getItem('cart'));
+}
+console.log(cart);
+var sum = 0;
+if ($.isEmptyObject(cart)) {
+    //if object is empty
+    mystr = `<p>Your cart is empty, please add some items to your cart before checking out!</p>`
+    $('#items').append(mystr);
+} else {
+    for (item in cart) {
+        let name = cart[item][1];
+        let qty = cart[item][0];
+        sum = sum + qty;
+        mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                    ${name}
+                    <span class="badge badge-primary badge-pill">${qty}</span>
+                </li>`
+        $('#items').append(mystr);
+    }
+}
+document.getElementById('cart').innerHTML = sum;
+</script>
+{% endblock js%}
