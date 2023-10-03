@@ -30,24 +30,25 @@
       </div>
   </div>
 <div class="col">
-    <h2> Enter Detail</h2>
-    <form class="row g-3">
+
+    <form method="post" action="{% url 'checkout' %}">{% csrf_token %}
+
+        <h2> Enter Detail</h2>
   <div class="col-md-12">
     <label for="name" class="form-label">Name</label>
-    <input type="text" class="form-control" id="name"  placeholder="Full Name">
+    <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" required>
   </div>
         <div class="col-md-12">
     <label for="email" class="form-label">Email</label>
-    <input type="email" class="form-control" id="email"  placeholder="Email">
+    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
   </div>
          <div class="col-md-12">
     <label for="phone" class="form-label">Phone Number</label>
-    <input type="number" class="form-control" id="phone"  placeholder="Phone number">
+    <input type="tel" class="form-control" id="phone" name="phone"  placeholder="Phone number" required>
   </div>
-          <h4> Enter address</h4>
-  <div class="col-md-10">
-    <label for="province" class="form-label">Province</label>
-<select id="province" class="form-select">
+        <div class="col-md-12">
+        <label for="province" class="form-label" id="province">Province</label>
+<select id="province" class="form-select" name="province">
   <option selected>Choose...</option>
   <option value="Koshi">Koshi</option>
   <option value="Madhesh">Madhesh</option>
@@ -57,22 +58,100 @@
   <option value="Karnali">Karnali</option>
   <option value="Sudurpashchim">Sudurpashchim</option>
 </select>
-  </div>
-     <div class="col-md-12">
-    <label for="district" class="form-label">District</label>
-    <input type="text" class="form-control" id="district" placeholder="District Name">
-  </div>
-  <div class="col-md-15">
-    <label for="inputcity" class="form-label">City</label>
-    <input type="text" class="form-control" id="inputcity">
+ </div>
+        <div class="col-md-12">
+     <label for="district" class="form-label" id="district">District</label>
+<select id="district" class="form-select" name="district">
+  <option selected>Choose...</option>
+  <option value="Achham">Achham</option>
+  <option value="Arghakhanchi">Arghakhanchi</option>
+  <option value="Baglung">Baglung</option>
+  <option value="Baitadi">Baitadi</option>
+  <option value="Bajhang">Bajhang</option>
+  <option value="Bajura">Bajura</option>
+  <option value="Banke">Banke</option>
+  <option value="Bara">Bara</option>
+  <option value="Bardiya">Bardiya</option>
+  <option value="Bhaktapur">Bhaktapur</option>
+  <option value="Bhojpur">Bhojpur</option>
+  <option value="Chitwan">Chitwan</option>
+  <option value="Dadeldhura">Dadeldhura</option>
+  <option value="Dailekh">Dailekh</option>
+  <option value="Dang">Dang</option>
+  <option value="Darchula">Darchula</option>
+  <option value="Dhading">Dhading</option>
+  <option value="Dhankuta">Dhankuta</option>
+  <option value="Dhanusha">Dhanusha</option>
+  <option value="Dholkha">Dholkha</option>
+  <option value="Dolpa">Dolpa</option>
+  <option value="Doti">Doti</option>
+  <option value="Gorkha">Gorkha</option>
+  <option value="Gulmi">Gulmi</option>
+  <option value="Humla">Humla</option>
+  <option value="Ilam">Ilam</option>
+  <option value="Jajarkot">Jajarkot</option>
+  <option value="Jhapa">Jhapa</option>
+  <option value="Jumla">Jumla</option>
+  <option value="Kailali">Kailali</option>
+  <option value="Kalikot">Kalikot</option>
+  <option value="Kanchanpur">Kanchanpur</option>
+  <option value="Kapilvastu">Kapilvastu</option>
+  <option value="Kaski">Kaski</option>
+  <option value="Kathmandu">Kathmandu</option>
+  <option value="Kavrepalanchok">Kavrepalanchok</option>
+  <option value="Khotang">Khotang</option>
+  <option value="Lalitpur">Lalitpur</option>
+  <option value="Lamjung">Lamjung</option>
+  <option value="Mahottari">Mahottari</option>
+  <option value="Makwanpur">Makwanpur</option>
+  <option value="Manang">Manang</option>
+  <option value="Morang">Morang</option>
+  <option value="Mugu">Mugu</option>
+  <option value="Mustang">Mustang</option>
+  <option value="Myagdi">Myagdi</option>
+  <option value="Nawalparasi">Nawalparasi</option>
+  <option value="Nuwakot">Nuwakot</option>
+  <option value="Okhaldhunga">Okhaldhunga</option>
+  <option value="Palpa">Palpa</option>
+  <option value="Panchthar">Panchthar</option>
+  <option value="Parbat">Parbat</option>
+  <option value="Parsa">Parsa</option>
+  <option value="Pyuthan">Pyuthan</option>
+  <option value="Ramechhap">Ramechhap</option>
+  <option value="Rasuwa">Rasuwa</option>
+  <option value="Rautahat">Rautahat</option>
+  <option value="Rolpa">Rolpa</option>
+  <option value="Rukum">Rukum</option>
+  <option value="Rupandehi">Rupandehi</option>
+  <option value="Salyan">Salyan</option>
+  <option value="Sankhuwasabha">Sankhuwasabha</option>
+  <option value="Saptari">Saptari</option>
+  <option value="Sarlahi">Sarlahi</option>
+  <option value="Sindhuli">Sindhuli</option>
+  <option value="Sindhupalchok">Sindhupalchok</option>
+  <option value="Siraha">Siraha</option>
+  <option value="Solukhumbu">Solukhumbu</option>
+  <option value="Sunsari">Sunsari</option>
+  <option value="Surkhet">Surkhet</option>
+  <option value="Syangja">Syangja</option>
+  <option value="Tanahu">Tanahu</option>
+  <option value="Taplejung">Taplejung</option>
+  <option value="Terhathum">Terhathum</option>
+  <option value="Udayapur">Udayapur</option>
+  <option value="Western Rukum">Western Rukum</option>
+</select>
+</div>
+  <div class="col-md-12">
+    <label for="city" class="form-label">City</label>
+    <input type="text" class="form-control" id="city" name="city" placeholder="City Name:" required>
   </div>
   <div class="col-md-7">
-    <label for="inputzip" class="form-label">Zip</label>
-    <input type="text" class="form-control" id="inputzip">
+    <label for="zip" class="form-label">Zip</label>
+    <input type="text" class="form-control" id="zip" name="zip" placeholder="Zip Code:" required>
   </div>
   <div class="col-12">
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <input class="form-check-input" type="checkbox" id="gridCheck" required>
       <label class="form-check-label" for="gridCheck">
         Check me out
       </label>

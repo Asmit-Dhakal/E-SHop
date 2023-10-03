@@ -1,5 +1,6 @@
+from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Product
+from .models import Product, order
 from django.core.paginator import Paginator
 
 
@@ -24,8 +25,19 @@ def contact(request):
 
 
 def checkout(request):
-    products_object = Product.objects.all()
-    return render(request, 'shop/checkout.html',{'product_object': products_object})
+    if request.method == "POST":
+        name = request.POST.get('name', '')
+        email = request.POST.get('email', '')
+        phone = request.POST.get('phone', '')
+        province = request.POST.get('province', '')
+        district = request.POST.get('district', '')
+        city = request.POST.get('city', '')
+        zip_code = request.POST.get('zip', '')
+        # Create and save the Order object within the POST block
+        orders = order(name=name, email=email, phone=phone, province=province, district=district, city=city, zip_code=zip_code)
+        orders.save()
+        return HttpResponse('Order placed successfully!')
+    return render(request, 'shop/checkout.html')
 
 
 def about(request):
