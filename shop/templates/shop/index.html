@@ -107,7 +107,7 @@ if (localStorage.getItem('cart') == null) {
 //$('.cart').click(function() {
 $('.divpr').on('click', 'button.cart', function() {
     var idstr = this.id.toString();
-    if (cart[idstr] != undefined) {
+    if (cart[idstr] !== undefined) {
         qty = cart[idstr][0] + 1;
 
     } else {
@@ -135,13 +135,15 @@ function updatePopover(cart) {
     popStr = popStr + "</div> <a href='{% url 'checkout' %}'><button class='btn btn-primary' id ='checkout'>Checkout</button></a> <button class='btn btn-primary' onclick='clearCart()' id ='clearCart'>Clear Cart</button>     "
     console.log(popStr);
     document.getElementById('popcart').setAttribute('data-content', popStr);
-    $('#popcart').popover('show');
+  $('#popcart').popover({
+  trigger: 'focus'
+})
 }
 
 function clearCart() {
     cart = JSON.parse(localStorage.getItem('cart'));
     for (var item in cart) {
-        document.getElementById('div' + item).innerHTML = '<button id="' + item + '" class="btn btn-primary cart">Add To Cart</button>'
+        document.getElementById('div' + item).innerHTML ='<button type = "button" id="'+ item +'" class = "btn-cart cart" >Add to cart<span><i class = "fas fa-plus"></i></span></button>'
     }
     localStorage.clear();
     cart = {};
