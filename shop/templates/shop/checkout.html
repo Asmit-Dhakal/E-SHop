@@ -32,7 +32,7 @@
 <div class="col">
 
     <form method="post" action="{% url 'checkout' %}">{% csrf_token %}
-
+<input type="hidden" name="itemsJson" id="itemsJson">
         <h2> Enter Detail</h2>
   <div class="col-md-12">
     <label for="name" class="form-label">Name</label>
@@ -191,5 +191,11 @@ if ($.isEmptyObject(cart)) {
     }
 }
 document.getElementById('cart').innerHTML = sum;
+$('#itemsJson').val(JSON.stringify(cart));
+{% if thank %}
+alert('Thanks for ordering with us. Your order is is {{ id }}. Use it to track your order using our order tracker');
+localStorage.clear();
+document.location = "/";
+{% endif %}
 </script>
 {% endblock js%}

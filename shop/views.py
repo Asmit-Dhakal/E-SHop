@@ -26,6 +26,7 @@ def contact(request):
 
 def checkout(request):
     if request.method == "POST":
+        item_json = request.POST.get('itemsJson', '')
         name = request.POST.get('name', '')
         email = request.POST.get('email', '')
         phone = request.POST.get('phone', '')
@@ -34,9 +35,13 @@ def checkout(request):
         city = request.POST.get('city', '')
         zip_code = request.POST.get('zip', '')
         # Create and save the Order object within the POST block
-        orders = order(name=name, email=email, phone=phone, province=province, district=district, city=city, zip_code=zip_code)
+        orders = order(item_json=item_json,name=name, email=email, phone=phone, province=province, district=district, city=city,
+                       zip_code=zip_code)
         orders.save()
-        return HttpResponse('Order placed successfully!')
+        thank = True
+        id = order.order_id
+        return render(request, 'shop/checkout.html', {'thank': thank, 'id':id })
+
     return render(request, 'shop/checkout.html')
 
 
