@@ -48,7 +48,7 @@
   </div>
         <div class="col-md-12">
         <label for="province" class="form-label" id="province">Province</label>
-<select id="province" class="form-select" name="province">
+<select id="province" class="form-select" name="province" required>
   <option selected>Choose...</option>
   <option value="Koshi">Koshi</option>
   <option value="Madhesh">Madhesh</option>
@@ -61,7 +61,7 @@
  </div>
         <div class="col-md-12">
      <label for="district" class="form-label" id="district">District</label>
-<select id="district" class="form-select" name="district">
+<select id="district" class="form-select" name="district" required>
   <option selected>Choose...</option>
   <option value="Achham">Achham</option>
   <option value="Arghakhanchi">Arghakhanchi</option>
@@ -166,7 +166,7 @@
 
 {% endblock body %}
 {% block js %}
-<script>
+ <script>
 if (localStorage.getItem('cart') == null) {
     var cart = {};
 } else {
@@ -193,9 +193,10 @@ if ($.isEmptyObject(cart)) {
 document.getElementById('cart').innerHTML = sum;
 $('#itemsJson').val(JSON.stringify(cart));
 {% if thank %}
-alert('Thanks for ordering with us. Your order is is {{ id }}. Use it to track your order using our order tracker');
+alert('Thanks for ordering with us. Your order ID is {{ id }} . Use it to track your order using our order tracker');
 localStorage.clear();
 document.location = "/";
 {% endif %}
+
 </script>
 {% endblock js%}
