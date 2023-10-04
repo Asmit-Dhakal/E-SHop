@@ -28,5 +28,5 @@ def profilepage(request):
 
 def handlelogout(request):
     logout(request)
-    messages.info(request, "logout sucess")
-    return redirect('login')
+    messages.success(request, f'Logout Successfully')
+    return redirect('shop/index')
