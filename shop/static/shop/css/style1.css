@@ -288,5 +288,85 @@ img{
 .qty{
     font-size:12px;
 }
+/* Background and layout for the contact section */
+.contact {
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Style for the contact form */
+.contact-form {
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center-align the form content */
+}
+
+/* Style for the contact form on larger screens */
+.contact-form h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.contact-form p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* Style for form elements */
+.contact-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contact-form textarea {
+    height: 150px;
+}
+
+.contact-form button {
+    background-color: #f9004d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background-color: #d7003f;
+}
+
+/* Media Query for Mobile View */
+@media (max-width: 768px) {
+    .contact-form {
+        margin: 0;
+    }
+}
+#desc {
+    height: 200px; /* Adjust the height as needed */
+    width: 100%; /* Adjust the width as needed */
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: relative;
+}
 
 
