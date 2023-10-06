@@ -2,8 +2,8 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .froms import RegisterForm
-from .models import User, Contact
+from .froms import RegisterForm, ProfileForm
+from .models import Contact, Profile
 
 
 # Create your views here
@@ -22,8 +22,17 @@ def register(request):
 
 @login_required
 def profilepage(request):
-    user_objects = User.objects.all()
-    return render(request, 'users/profile.html', {'user_objects': user_objects})
+    return render(request, 'users/profile.html', )
+
+
+def profileupdate(request, user):
+    profile = Profile.objects.values(user=user)
+    pform = ProfileForm(request.POST or None, instance=profile)
+
+    if pform.is_valid():
+        pform.save()
+        return redirect('profile')
+    return render(request, 'users/profile-form.html', {'pform': pform})
 
 
 def handlelogout(request):
