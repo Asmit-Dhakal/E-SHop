@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import Product, order, OrderUpdate
 from users.models import Contact
+import json
+from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 
 
@@ -21,6 +23,11 @@ def detail(request, id):
     return render(request, 'shop/detail.html', {'product_object': products_object})
 
 
+def about(request):
+    product_objects = Product.objects.all()
+    return render(request, 'shop/about.html', {'product_objects': product_objects})
+
+
 def contact(request):
     if request.method == "POST":
         name = request.POST.get('name', '')
@@ -34,13 +41,34 @@ def contact(request):
     return render(request, 'shop/contact.html')
 
 
+def tracker(request):
+    if request.method == "POST":
+        orderId = request.POST.get('orderId', '')
+        email = request.POST.get('email', '')
+        try:
+            orders = order.objects.filter(order_id=orderId, email=email)
+            if len(orders) > 0:
+                update = OrderUpdate.objects.filter(order_id=orderId)
+                updates = []
+                for item in update:
+                    updates.append({'text': item.update_desc, 'time': item.timestamp})
+                    response = json.dumps([updates, orders[0].item_json], default=str)
+                return HttpResponse(response)
+            else:
+                return HttpResponse('{}')
+        except Exception as e:
+            return HttpResponse('{}')
+
+    return render(request, 'shop/tracking.html')
+
+
 def checkout(request):
     if not request.user.is_authenticated:
         return redirect('login')
 
     if request.method == "POST":
         item_json = request.POST.get('itemsJson', '')
-
+        amount = request.POST.get('amount', '')
         name = request.POST.get('name', '')
         email = request.POST.get('email', '')
         phone = request.POST.get('phone', '')
@@ -50,21 +78,18 @@ def checkout(request):
         zip_code = request.POST.get('zip', '')
         # Create and save the Order object within the POST block
         orders = order(item_json=item_json, name=name, email=email, phone=phone, province=province, district=district,
-                       city=city, zip_code=zip_code)
+                       city=city, zip_code=zip_code, amount=amount)
         orders.save()
         update = OrderUpdate(order_id=orders.order_id, update_desc="The order has been placed")
         update.save()
         thank = True
         id = orders.order_id
-        return render(request, 'shop/checkout.html', {'thank': thank, 'id': id})
-
+    # return render(request, 'shop/checkout.html', {'thank': thank, 'id': id})
+    # ---- transfer amount to paytm
     return render(request, 'shop/checkout.html')
 
 
-def tracker(request):
-    return render(request, 'shop/tracking.html')
-
-
-def about(request):
-    product_objects = Product.objects.all()
-    return render(request, 'shop/about.html', {'product_objects': product_objects})
+@csrf_exempt
+def handlerequest(request):
+    # handle paytm to t
+    pass
