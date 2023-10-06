@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -12,12 +13,14 @@ class Contact(models.Model):
         return self.name
 
 
-class User(models.Model):
-    name = models.CharField(max_length=50)
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone_number = models.IntegerField()
     address = models.CharField(max_length=50)
     Date_of_birth = models.CharField(max_length=25)
-    citizenship = models.ImageField(default='0')
+    citizenship = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='user/images')
 
-    def __str__(self):
-        return self.name
+
+def __str__(self):
+    return self.user.username

@@ -38,6 +38,7 @@ class Product(models.Model):
 class order(models.Model):
     order_id = models.AutoField(primary_key=True)
     item_json = models.CharField(max_length=10000)
+    amount = models.FloatField(default=0)
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
     email = models.EmailField()
@@ -45,9 +46,6 @@ class order(models.Model):
     city = models.CharField(max_length=200)
     province = models.CharField(max_length=200)
     zip_code = models.CharField(max_length=20)
-
-    def __str__(self):
-        return self.name
 
 
 class OrderUpdate(models.Model):

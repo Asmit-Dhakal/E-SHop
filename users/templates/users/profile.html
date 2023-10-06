@@ -1,27 +1,8 @@
-{% load static %}
-<!DOCTYPE html>
 
-<html lang="en">
-    <head>
-        <title>title page</title>
-        <!-- Font Awesome -->
-<link
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-  rel="stylesheet"
-/>
-<!-- Google Fonts -->
-<link
-  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-  rel="stylesheet"
-/>
-<!-- MDB -->
-<link
-  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css"
-  rel="stylesheet"
-/>
-    </head>
-       <h1 class="logo"><a href="/">Happy E-Shop</a></h1>
-    <body class="bg-light">
+{% extends "shop/base.html" %}
+ {% block title %}Home{% endblock title %}
+
+{% block body %}
         <div class="container">
 <div class="row d-flex justify-content-center">
 <div class="col-md-10 mt-5 pt-5">
@@ -29,9 +10,9 @@
    <div class="col-sm-4 bg-info rounded-left">
     <!--======profile photo==== -->
     <div class="card-block text-center text-white">
-      <img src="https://www.researchgate.net/profile/Ramakrishnan-Mukundan/publication/29487111/figure/fig1/AS:309919476666377@1450901969318/a-Original-image-of-size-200x200-pixels.png" alt="..." class="mt-5" style="width:210px;height:200px;">
-        <h2 class="font-weight-bold mt-4">{{ user_object.name }}</h2>
-        <p>web designer</p>
+      <img src="{{ user.profile.image.url }}" alt="..." class="mt-5" style="width:200px;height:200px;">
+        <h2 class="font-weight-bold mt-4">{{ user.username }}</h2>
+        <p>Developer</p>
         <a href="#" class="btn btn-dark btn-1g mb-4">
         <i class="far fa-edit fa-2x mb-4"></i></a>
     </div>
@@ -42,13 +23,13 @@
         <!--====email part======-->
         <div class="col-sm-6">
             <p class="font-weight-bold">Email</p>
-            <h6 class="text-muted">{{ user_email }}</h6>
+            <h6 class="text-muted">{{ user.email }}</h6>
             <hr class="badge-primary mt-0" style="width:50%;">
         </div>
         <!--mobile number part-->
         <div class="col-sm-6">
             <p class="font-weight-bold">Mobile number</p>
-            <h6 class="text-muted">{{ user_objects.email }}</h6>
+            <h6 class="text-muted">{{ user.profile.phone_number }}</h6>
             <hr class="badge-primary mt-0" style="width:30%;">
         </div>
     </div>
@@ -57,14 +38,14 @@
         <!--===addrss part===-->
         <div class="col-sm-6">
             <p class="font-weight-bold">Address</p>
-            <h6 class="text-muted">{{ user_object.address }}</h6>
+            <h6 class="text-muted">{{ user.profile.address }}</h6>
             <hr class="badge-primary mt-0" style="width:30%;">
 
         </div>
         <!--======item box======-->
         <div class="col-sm-6">
-            <p class="font-weight-bold">Costomer no. </p>
-            <h6 class="text muted">000005</h6>
+            <p class="font-weight-bold">Citizenship NO: </p>
+            <h6 class="text muted">{{ user.profile.citizenship}}</h6>
             <hr class="badge-primary mt-0" style="width: 30%;">
         </div>
     </div>
@@ -73,26 +54,18 @@
         <div class="row">
             <div class="col-sm-6">
                 <p class="font-weight-bold">Acount status</p>
-                <h6 class="text muted">True</h6>
+                <h6 class="text muted">{{ user.is_active }}</h6>
                 <hr class="badge-primary mt-0" style="width:30%;">
             </div>
             <div class="col-sm-6">
                 <p class="font-weight-bold">Date of Birth</p>
-                <h6 class="text muted">200-01-15</h6>
+                <h6 class="text muted">{{ user.profile.Date_of_birth }}</h6>
                 <hr class="badge-primary mt-0" style="width: 40%;">
             </div>
     </div>
-    <hr class="bg-primary">
-    <!--======icon box====-->
-    <ul class="list-unstyled d-flex justify-content-center mt-4">
-        <li><a href="#"><i class="fab fa-facebook-f px-3 h4 text-info"></i></a></li>
-            <li><a href="#"><i class="fab fa-twitter px-3 h4 text-info"></i></a></li>
-                <li><a href="#"><i class="fab fa-youtube px-3 h4 text-info"></i></a></li>
-    </ul>
-   </div>
+</div>
 </div>
 </div>
 </div>
         </div>
-     </body>
-   </html>
+    {% endblock body %}
