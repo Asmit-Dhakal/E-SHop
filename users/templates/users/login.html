@@ -1,6 +1,7 @@
 {% extends 'shop/base.html' %}
-{% block body %}
-<style>
+
+ {% block css %}
+     <style>
     /* Custom CSS */
     .login-container {
         max-width: 400px;
@@ -41,10 +42,11 @@
         border-color: #6c757d;
     }
 </style>
-
-<section id="hero">
-    <div class="hero-container">
-        <div class="card bg-light p-5 login-container">
+        {% endblock css %}
+{% block body %}
+<div style="width: auto; height: 100px;">
+    </div>
+    <div class="card bg-light p-5 login-container">
             <h2 class="text-dark login-title">Login</h2>
             <form method="POST">
                 {% csrf_token %}
@@ -62,6 +64,5 @@
                 Don't have an account? <a href="{% url 'register' %}" class="btn btn-secondary">Register here</a>
             </div>
         </div>
-    </div>
-</section>
+
 {% endblock %}
