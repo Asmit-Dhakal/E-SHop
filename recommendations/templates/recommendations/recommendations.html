@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details and Recommendations</title>
+    <!-- Add any additional CSS or JavaScript links as needed -->
+</head>
+<body>
+    <div class="product-details">
+        <h1>{{ current_product.name }}</h1>
+        <p><strong>Price:</strong> ${{ current_product.price }}</p>
+        <p><strong>Description:</strong> {{ current_product.description }}</p>
+        <!-- Add any additional product details you want to display -->
+    </div>
+
+    <div class="recommended-products">
+        <h2>Recommended Products</h2>
+        <ul>
+            {% for product in recommendations %}
+                <li>
+                    <h3>{{ product.name }}</h3>
+                    <p><strong>Price:</strong> ${{ product.price }}</p>
+                    <!-- Add any additional information about recommended products -->
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
