@@ -29,5 +29,6 @@ urlpatterns = [
                        name='login'),
                   path('logout/', authentication_views.LogoutView.as_view(template_name='shop/index.html'),
                        name='logout'),
-                  path('profile/', user_views.profilepage, name='profile')
+                  path('profile/', user_views.profilepage, name='profile'),
+                  path('re/', include('recommendations.urls'))
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
