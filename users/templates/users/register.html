@@ -1,76 +1,88 @@
 {% extends 'shop/base.html' %}
-{% block body %}
+  {% block css %}
 <style>
+   /* Styles for form groups, labels, and error messages */
+.form-group {
+    margin-bottom: 25px;
+}
 
-    .form-group {
-        margin-bottom: 20px;
+.form-label {
+    color: #555;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.error-message {
+    color: #d9534f;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Styles for form inputs */
+.form-control {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+/* Define keyframes for the background color animation */
+@keyframes background-color-change {
+    0% {
+        background-color: #ffcccc; /* Initial background color */
     }
-
-    .form-label {
-        color: #555;
+    100% {
+        background-color: #66cc66; /* Final background color */
     }
+}
 
+/* Styles for the "Login" container with background color animation */
+.login-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #333;
+    background-color: #ffcccc; /* Initial background color */
+    animation: background-color-change 5s ease-in-out infinite alternate; /* Apply the animation */
+}
 
+/* Styles for the "Login Here" link */
+.mt-4 a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
 
-    .btn-secondary {
-        background-color: #6c757d;
-        border-color: #6c757d;
-    }
+.mt-4 a:hover {
+    text-decoration: underline;
+}
 
-    .form-group {
-        margin-bottom: 25px;
-    }
+/* Styles for the "Signup" button */
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
-    .form-label {
-        color: #555;
-        font-weight: bold;
-        display: block;
-        margin-bottom: 5px;
-    }
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
 
-    .form-control {
-        border: 1px solid #ddd;
-        padding: 10px;
-        border-radius: 5px;
-        width: 100%;
-    }
-
-    .error-message {
-        color: #d9534f;
-        font-size: 12px;
-        margin-top: 5px;
-    }
-
-    .login-container {
-        max-width: 400px;
-        margin: 0 auto;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        background-color: #ffcccc; /* Unique background color */
-        color: #333; /* Unique text color */
-    }
-
-    .form-group {
-        margin-bottom: 25px;
-    }
-
-    .form-label {
-        color: #555;
-        font-weight: bold;
-        display: block;
-        margin-bottom: 5px;
-    }
-
-
-    .error-message {
-        color: #d9534f;
-        font-size: 12px;
-        margin-top: 5px;
-    }
 </style>
-<section id="hero">
-    <div class="hero-container">
+  {% endblock css %}
+
+{% block body %}
+
+<div style="width: auto; height: 100px;">
+    </div>
         <div class="card bg-light p-2 login-container">
             <form method="POST">
                 {% csrf_token %}
@@ -118,9 +130,7 @@
                  Already have an account? <a href="{% url 'login' %}" class="btn btn-secondary">Login Here</a>
             </div>
         </div>
-    </div>
-</section>
-{% endblock %}
+{% endblock body %}
 
   <form method="post">
 {% csrf_token %}
