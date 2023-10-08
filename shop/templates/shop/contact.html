@@ -1,7 +1,105 @@
 {% extends "shop/base.html" %}
 {% load static %}
  {% block title %}Contact{% endblock title %}
+{% block css  %}
+    <style>
+/* Styles for the contact section with gradient background */
+.contact {
+    background: linear-gradient(135deg, #3A38DF, #0AC1B3);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Animation for the contact section text */
+.contact h1 {
+    font-size: 32px;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+/* Animation for the contact form */
+.contact-form {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    animation: fadeInDown 1s ease-in-out;
+}
+
+/* Input and label styles */
+.contact-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #333;
+}
+
+/* Textarea styles */
+.contact-form textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+/* Submit button styles */
+.contact-form button[type="submit"] {
+    background-color: #e43c5c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button[type="submit"]:hover {
+    background-color: #c3304a;
+}
+
+/* Keyframes for fade-in animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+    </style>
+{% endblock css %}
 {% block body %}
+    <div style="width: auto; height: 70px;">
+
+    </div>
   <section class="contact">
         <div class="contact-content">
             <div class="contact-form">
