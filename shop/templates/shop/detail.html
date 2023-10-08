@@ -1,146 +1,147 @@
 {% extends "shop/base.html" %}
  {% block title %}Home{% endblock title %}
- {% block css %}
-       @import url('https://fonts.googleapis.com/css2?family=Lato:ital&display=swap');
+{% block css %}
+    <style>
+    #product-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body{
-    font-family: 'poppins',sans-serif;
-}
-.small.container{
-    max-width: 1000px;
-    margin: auto;
-    padding-left: 25px;
-    padding-right: 20px;
-}
-.row{
-    display:flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-.single-product{
-    margin-top: 80px;
-}
-.small-img-row{
-    display:flex;
-    justify-content: space-around;
-}
-.col-2 img{
-    max-width: 100%;
-    padding: 50px 0;
-}
+        #product-container .product-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-.small-img-col{
-    flex-basis: 24%;
-    cursor: pointer;
-}
-.single-product .col-2 img {
-    padding: 0;
+        #product-image {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
 
-}
-.single-product .col-2{
-    padding: 20px;
-}
-.col-2{
-    flex-basis: 50%;
-    min-width: 300px;
-}
-.col-2 h1{
-    font-size: 50px;
-    line-height: 60px;
-    margin: 25px 0;
-}
+        #product-image img {
+            max-width: 100%;
+            height: auto;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
 
-.single-product h4{
-    margin: 20ox 0;
-    font-size: 22px;
-    font-weight: bold;
+        #zoom-icon {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            padding: 10px;
+            cursor: pointer;
+        }
 
-}
-.original-price{
-    text-decoration: line-through;
-}
-.single-product h5{
-    margin: 20ox 0;
-    font-size: 22px;
-    font-weight: bold;
+        #product-details {
+            flex: 1;
+            padding: 20px;
+        }
 
-}
+        #product-name {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-a{
-    text-decoration: none;
-    color: #555;
-}
-.single-product .fa{
-    color: #ff523b;
-    margin-left: 10px;
-}
+        #price-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
 
-.product-description{
-    display:flex;
-    flex-direction:column;
+        #original-price {
+            font-size: 18px;
+            color: #888;
+            text-decoration: line-through;
+            margin-right: 20px;
+        }
 
-    .color:#111;
-}
-.container{
-    padding: 2rem;
-    background-color: #fff;
-    border-radius: 2px;
-    line-height: 1.4rem;
-    box-shadow: 0 0 1rem rgba(0,0,0,.1);
+        #discounted-price {
+            font-size: 32px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
 
-}
+        #product-heading {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+        }
 
-.btn{
-    display: inline-block;
-    background: #ff523b;
-    color: #fff;
-    padding: 8px 30px;
-    margin: 30px 0;
-    border-radius: 30px;
-    transition: background 0.5s;
-}
-.btn:hover{
-    background: #563434;
+        #product-heading i {
+            margin-right: 10px;
+            font-size: 24px;
+            color: #e74c3c;
+        }
 
-}
-        {% endblock css %} %}
+        #product-description p {
+            font-size: 18px;
+            line-height: 1.5;
+            color: #555;
+        }
+
+    </style>
+{% endblock css %}
 {% block body %}
-        <div class="small-container single-product">
-            <div class="row">
-                <div class="col-2">
-                    <img src="/media/{{ product_object.image }}" width="600" height="520"  id="productImg" alt="">
-                   <div class="small-img-row">
-                        <div class="small-img-col">
-                        </div>
-                    </div>
+   <div style="width: auto; height: 70px;">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+   <div id="product-container" class="container mt-5">
+        <div class="product-container">
+            <div id="product-image" class="product-image">
+                <img id="productImg" src="/media/{{ product_object.image }}" alt="Product Image" class="img-fluid rounded-lg">
+                <div id="zoom-icon" class="zoom-icon">
+                    <i class="fas fa-search-plus"></i>
                 </div>
-                 <div class="col-2">
-
-                    <h1> {{ product_object.name }}</h1>
-                    <h4>original price <span class="original-price">  {{ product_object.price }}</span> </h4>
-                    <h5>Offer price - {{ product_object.discount_price }}</h5>
-                         <div class = "product-btns">
-                                 <span id="divpr{{ product.id }}" class="divpr">
-                                 <button type = "button" id="pr{{ product.id }}" class = "btn-cart cart" > Add to cart
-                                     <span><i class = "fas fa-plus"></i></span>
-                                 </button>
-                                     </span>
-                             </div>
-
-                      <h3>product details<i class="fa fa-indent"></i></h3>
-                      <br>
-                      <div class="product-description">
-                       <div class="content">
-                        <p>  {{ product_object.description }}</p>
-                   </div>
+            </div>
+            <div id="product-details" class="product-details">
+                <h1 id="product-name" class="product-name">{{ product_object.name }}</h1>
+                <div id="price-info" class="price-info">
+                    <h4 id="original-price" class="original-price">${{ product_object.price }}</h4>
+                    <h5 id="discounted-price" class="discounted-price">${{ product_object.discount_price }}</h5>
                 </div>
-              </div>
+                <h3 id="product-heading" class="product-heading">
+                    <i class="fas fa-info-circle"></i> Product Details
+                </h3>
+                <div class="product-description">
+                    <p>{{ product_object.description }}</p>
+                </div>
             </div>
-            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script>
+      $(document).ready(function() {
+    $('#productImg').magnificPopup({
+        type: 'image',
+        closeOnContentClick: true,
+        closeBtnInside: false,
+        fixedContentPos: false,
+        mainClass: 'mfp-no-margins mfp-with-zoom',
+        image: {
+            verticalFit: true
+        },
+        zoom: {
+            enabled: true,
+            duration: 300,
+            easing: 'ease-in-out',
+            opener: function(openerElement) {
+                return openerElement.is('img') ? openerElement : openerElement.find('img');
+            }
+        }
+    });
+});
+    </script>
 {% endblock body %}
