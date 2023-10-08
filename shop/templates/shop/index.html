@@ -1,6 +1,69 @@
 {% extends "shop/base.html" %}
  {% block title %}Home{% endblock title %}
+{% block css %}
+    <style>
+/* Style for categories and subcategories */
+.sidebar {
+    float: left;
+    width: 20%; /* Adjust the width as needed */
+    background-color: #f5f5f5;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
 
+.categories h2,
+.subcategories h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.categories ul,
+.subcategories ul {
+    list-style: none;
+    padding: 0;
+}
+
+.categories li,
+.subcategories li {
+    margin-bottom: 10px;
+}
+
+.categories a,
+.subcategories a {
+    text-decoration: none;
+    display: block;
+    padding: 5px 10px;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+.categories a:hover,
+.subcategories a:hover {
+    background-color: #e0e0e0;
+}
+
+.categories .active,
+.subcategories .active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+    </style>
+{% endblock css %}
+{% block raw_js %}
+    <script>
+function toggleSubcategories(categoryId) {
+    const subcategories = document.getElementById(`subcategories${categoryId}`);
+    if (subcategories.style.display === 'none') {
+        subcategories.style.display = 'block';
+    } else {
+        subcategories.style.display = 'none';
+    }
+}
+
+</script>
+{% endblock raw_js %}
 {% block body %}
    <!-- ======= Hero Section ======= -->
   <section id="hero">
@@ -21,7 +84,7 @@
     </div>
   </section>
   <!-- End Hero -->
-    <div>
+      <div>
    <header class="section-header">
         <section class="header-main border-bottom bg-white">
             <div class="container-fluid">
@@ -37,63 +100,76 @@
        </div>
       </form>
                    </div>
-                   <div class="col-md-2">
-                       <div class="d-flex d-none d-md-flex flex-row align-items-center">
-                           <span class="shop-bag"><i class='bx bxs-shopping-bag'></i></span>
-                           <div class="d-flex flex-column ms-2">
-                               <span class="qty">1 Product</span>
-                               <span class="fw-bold">$27.90</span>
-                           </div>
-                       </div>
-                   </div>
                </div>
             </div>
         </section>
         </header>
     </div>
-<main id="main">
-    <div id="products" class = "products">
-             <div class = "container">
-             <div class="row">
-                 <div class = "product-items">
-                         {% for product in product_objects %}
-                     <!-- single product -->
-                     <div class = "product">
-                         <div class = "product-content">
-                             <div class = "product-img">
-                                 <img src="/media/{{ product.image }}" alt = "product image">
-                             </div>
+<aside id="sidebar" class="sidebar">
+        <div class="categories">
+            <h2>Categories</h2>
+            <ul>
+                {% for category in categories %}
+                    <li>
+                        <a href="javascript:void(0);" onclick="toggleSubcategories({{ category.id }})" class="{% if selected_category_id == category.id %}active{% endif %}">
+                            {{ category.name }}
+                        </a>
+                        <ul class="subcategories" id="subcategories{{ category.id }}">
+                            {% for subcategory in category.sub_category_set.all %}
+                                <li>
+                                    <a href="?subcategory_id={{ subcategory.id }}" class="{% if selected_subcategory_id == subcategory.id %}active{% endif %}">
+                                        {{ subcategory.name }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </aside>
 
+    <main id="main" class="main">
+        <div id="products" class="products">
+            <div class="container">
+                <div class="row">
+                    <div class="product-items">
+                        {% for product in product_objects %}
+                            <!-- single product -->
+                            <div class="product">
+                                <div class="product-content">
+                                    <div class="product-img">
+                                        <img src="/media/{{ product.image }}" alt="product image">
+                                    </div>
 
-                         <div class = "product-info">
-                             <div class = "product-info-top">
-                                 <h2 class = "sm-title" id="namepr{{ product.id }}" >{{ product.name }}</h2>
-                                 <a href="/{{ product.id }}" class="btn btn-warning">View</a>
-                             </div>
-                              <div class = "product-info">
-                                 <span id="divpr{{ product.id }}" class="divpr">
-                                 <button type = "button" id="pr{{ product.id }}" class = "btn-cart cart" > Add to cart
-                                     <span><i class = "fas fa-plus"></i></span>
-                                 </button>
-                                     </span>
-                               <p class = "product-price"> price Rs:{{ product.price }}</p>
-                               <p class = "product-price"  >Discount price:<span id="pricepr{{ product.id}}">{{ product.discount_price }}</span></p>
-                             </div>
-                         </div>
+                                    <div class="product-info">
+                                        <div class="product-info-top">
+                                            <h2 class="sm-title" id="namepr{{ product.id }}">{{ product.name }}</h2>
+                                            <a href="/{{ product.id }}" class="btn btn-warning">View</a>
+                                        </div>
+                                        <div class="product-info">
+                                            <span id="divpr{{ product.id }}" class="divpr">
+                                                <button type="button" id="pr{{ product.id }}" class="btn-cart cart">Add to cart
+                                                    <span><i class="fas fa-plus"></i></span>
+                                                </button>
+                                            </span>
+                                            <p class="product-price">Price Rs: {{ product.price }}</p>
+                                            <p class="product-price">Discount price: <span id="pricepr{{ product.id }}">{{ product.discount_price }}</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="off-info">
+                                    <h2 class="sm-title">{{ product.discount_percent }}% off</h2>
+                                </div>
+                            </div>
+                            <!-- end of single product -->
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
-                         </div>
-
-                         <div class = "off-info">
-                             <h2 class = "sm-title">{{ product.discount_percent }}% off</h2>
-                         </div>
-                     </div>
-                     <!-- end of single product -->
-                       {% endfor %}
-                 </div>
-             </div>
-         </div>
-    </div>
- </main>
 {% endblock body %}
 {% block js %}
 <script>
@@ -186,5 +262,5 @@ $('.divpr').on("click", "button.plus", function() {
     updateCart(cart);
 });
 </script>
-{% endblock js%}
+{% endblock js %}
 
