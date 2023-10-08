@@ -1,44 +1,161 @@
 {% extends "shop/base.html" %}
  {% block title %}Home{% endblock title %}
+{% block css %}
+    <style>
+/* Reset some default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+/* Global styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to bottom, #ffffff, #f0f0f0); /* Better background */
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Tracker section */
+.tracker {
+    background-color: #3498db;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    text-align: center;
+    animation: fadeInUp 1s ease-in-out;
+    margin-bottom: 20px; /* Proper order */
+}
+
+.tracker-title {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+}
+
+.btn-primary {
+    background-color: #e43c5c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #c3304a;
+}
+
+/* Order status section */
+.order-status {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+.order-status-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.order-updates {
+    list-style-type: none;
+    padding: 0;
+}
+
+.order-update {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.order-details-title {
+    font-size: 24px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.order-details {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Keyframes for fade-in animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+    </style>
+{% endblock css %}
 {% block body %}
-     <section id="hero">
-    <div class="hero-container">
-
+      <div style="width: auto; height: 70px;">
     </div>
-  </section>
-  <div class="container">
-    <div class="col my-4">
-        <h2>Enter your Order Id and Email address to track your order</h2>
-        <form method="post" action="#" id="trackerForm">{% csrf_token %}
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="inputname">Order Id</label>
-                    <input type="text" class="form-control" id="orderId" name="orderId" placeholder="Order Id">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="inputEmail4">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
-                </div>
-                <button type="submit" class="btn btn-primary">Track Order</button>
+<div class="container">
+    <div class="tracker">
+        <h2 class="tracker-title">Track Your Order</h2>
+        <form method="post" action="#" id="trackerForm">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="orderId" class="form-label">Order ID</label>
+                <input type="text" class="form-control" id="orderId" name="orderId" placeholder="Enter Order ID" required>
             </div>
+            <div class="form-group">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Track Order</button>
         </form>
     </div>
-    <div class="col my-4">
-        <h2>Your Order Status</h2>
-        <div class="my-4">
-            <ul class="list-group" id="items">
-                Enter your order Id and Email and click Track Order to find details about your order!
-            </ul>
-        </div>
-        <h2>Your Order Details</h2>
-        <div class="my-4">
-            <ul class="list-group" id="citems">
-            </ul>
-        </div>
+    <div class="order-details">
+        <h2 class="order-details-title">Order Details</h2>
+        <ul class="list-group" id="citems"></ul>
     </div>
-</div>
-{% endblock %}
+    <div class="order-status">
+        <h2 class="order-status-title">Order Status</h2>
+        <ul class="order-updates" id="items">
+            Enter your Order ID and Email, then click "Track Order" to find details about your order.
+        </ul>
+    </div>
+</div
+{% endblock body %}
 {% block js %}
 <script>
 $('#trackerForm').submit(function(event) {
@@ -49,44 +166,46 @@ $('#trackerForm').submit(function(event) {
         'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
     };
     $.ajax({
-            type: 'POST',
-            url: '/tracker/',
-            data: formData,
-            encode: true
-        })
-        .done(function(data) {
-            console.log(data)
-            data = JSON.parse(data);
-            updates = data[0];
-            if (updates.length > 0 & updates != {}) {
-                for (i = 0; i < updates.length; i++) {
-                    let text = updates[i]['text'];
-                    let time = updates[i]['time'];
-                    mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
-                    ${text}
-                    <span class="badge badge-primary badge-pill">${time}</span>
-                </li>`
-                    $('#items').append(mystr);
-                }
-            } else {
+        type: 'POST',
+        url: '/tracker/',
+        data: formData,
+        encode: true
+    })
+    .done(function(data) {
+        $('#citems').empty();
+        console.log(data)
+        data = JSON.parse(data);
+        if (data['status'] == 'success') {
+            updates = data['updates'];
+            for (i = 0; i < updates.length; i++) {
+                let text = updates[i]['text'];
+                let time = updates[i]['time'];
                 mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
-                    Sorry, We are not able to fetch this order id and email. Make sure to type correct order Id and email</li>`
+                ${text}
+                <span class="badge badge-primary badge-pill">${time}</span>
+            </li>`
                 $('#items').append(mystr);
             }
             // Fill in the order details
-            cart = JSON.parse(data[1]);
+            cart = JSON.parse(data['itemsJson']);
             console.log(cart);
             for (item in cart) {
                 let name = cart[item][1];
                 let qty = cart[item][0];
                 mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
-                    ${name}
-                    <span class="badge badge-primary badge-pill">${qty}</span>
-                </li>`
+                ${name}
+                <span class="badge badge-primary badge-pill">${qty}</span>
+            </li>`
                 $('#citems').append(mystr);
             }
-        });
+        } else {
+            mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                Sorry, We are not able to fetch this order id and email. Make sure to type correct Order ID and Email</li>`
+            $('#items').append(mystr);
+            $('#citems').append(mystr);
+        }
+    });
     event.preventDefault();
 });
 </script>
-{% endblock %}
+{% endblock js%}
