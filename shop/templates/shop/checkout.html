@@ -1,7 +1,112 @@
 {% extends "shop/base.html" %}
  {% block title %}Home{% endblock title %}
+{% block css %}
+    <style>
+ /* Custom styles for the checkout page */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 20px;
+  padding: 20px;
+}
 
+/* Left Order Section */
+.col.my-2 {
+  flex: 1;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.list-group {
+  margin-bottom: 20px;
+  padding: 0;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+}
+
+.list-group-item:hover {
+  background-color: #f0f0f0;
+}
+
+.alert {
+  background-color: #e43c5c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  padding: 10px;
+  font-size: 18px;
+}
+
+/* Right Payment Section */
+.col {
+  flex: 1;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form {
+  max-width: 350px; /* Adjust the form width for smaller screens */
+  margin: 0 auto;
+}
+
+.form-label {
+  font-weight: bold;
+  color: #555;
+}
+
+.form-control {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 8px; /* Smaller padding for compact form elements */
+  font-size: 14px; /* Smaller font size for compact form elements */
+}
+
+.form-check-label {
+  font-weight: normal;
+  color: #555;
+}
+
+.form-check-input:checked ~ .form-check-label {
+  font-weight: bold;
+  color: #e43c5c;
+}
+
+.btn-primary {
+  background-color: #e43c5c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px; /* Smaller font size for buttons */
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #c72b4a;
+}
+
+</style>
+{% endblock css %}
 {% block body %}
+    <div style="width: auto; height: 70px;">
+    </div>
     <div class="container">
       <div class="col my-2">
           <h2> Checkout the product</h2>
@@ -21,33 +126,34 @@
 
         <h2> Enter Detail</h2>
   <div class="col-md-12">
-    <label for="name" class="form-label">Name</label>
+    <label for="name" class="form-label required-field">Name</label>
     <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" required>
   </div>
         <div class="col-md-12">
-    <label for="email" class="form-label">Email</label>
+    <label for="email" class="form-label required-field">Email</label>
     <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
   </div>
          <div class="col-md-12">
-    <label for="phone" class="form-label">Phone Number</label>
+    <label for="phone" class="form-label required-field">Phone Number</label>
     <input type="tel" class="form-control" id="phone" name="phone"  placeholder="Phone number" required>
   </div>
+   <div class="col-md-12">
+  <label for="province" class="form-label required-field" id="province">Province</label>
+  <select id="province" class="form-select" name="province" required>
+    <option selected>Choose...</option>
+    <option value="Koshi">Koshi</option>
+    <option value="Madhesh">Madhesh</option>
+    <option value="Bagmati">Bagmati</option>
+    <option value="Gandaki">Gandaki</option>
+    <option value="Lumbini">Lumbini</option>
+    <option value="Karnali">Karnali</option>
+    <option value="Sudurpashchim">Sudurpashchim</option>
+  </select>
+</div>
+
         <div class="col-md-12">
-        <label for="province" class="form-label" id="province">Province</label>
-<select id="province" class="form-select" name="province" required>
-  <option selected>Choose...</option>
-  <option value="Koshi">Koshi</option>
-  <option value="Madhesh">Madhesh</option>
-  <option value="Bagmati">Bagmati</option>
-  <option value="Gandaki">Gandaki</option>
-  <option value="Lumbini">Lumbini</option>
-  <option value="Karnali">Karnali</option>
-  <option value="Sudurpashchim">Sudurpashchim</option>
-</select>
- </div>
-        <div class="col-md-12">
-     <label for="district" class="form-label" id="district">District</label>
-<select id="district" class="form-select" name="district" required>
+     <label for="district" class="form-label required-field" id="district">District</label>
+    <select id="district" class="form-select" name="district" required>
   <option selected>Choose...</option>
   <option value="Achham">Achham</option>
   <option value="Arghakhanchi">Arghakhanchi</option>
